@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.io.IOException;
 
 /**
  * A very simple program using a graphical interface.
@@ -50,6 +51,13 @@ public final class SimpleGUIWithFileChooser {
         panelNorth.add(textField, BorderLayout.CENTER);
         panelNorth.add(browseButton, BorderLayout.EAST);
         frame.setContentPane(panel);
+        saveButton.addActionListener( e -> {
+            try {
+                controller.write(textArea.getText());
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(frame, e1.getMessage(), "ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         browseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
