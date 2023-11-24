@@ -1,9 +1,11 @@
 package it.unibo.mvc;
 
+import java.util.List;
+
 import it.unibo.mvc.api.DrawNumberController;
+import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.controller.DrawNumberControllerImpl;
 import it.unibo.mvc.model.DrawNumberImpl;
-import it.unibo.mvc.view.DrawNumberSwingView;
 
 /**
  * Application entry-point.
@@ -26,6 +28,16 @@ public final class LaunchApp {
     public static void main(final String... args) {
         final var model = new DrawNumberImpl();
         final DrawNumberController app = new DrawNumberControllerImpl(model);
-        app.addView(new DrawNumberSwingView());
+        final List<String> listClasses = List.of("it.unibo.mvc.view.DrawNumberSwingView", "it.unibo.mvc.view.DrawNumberTerminalView");
+        try {
+            for (final var className : listClasses) {
+                final Class<?> view = Class.forName(className);
+                for (int i=0 ; i<3 ; i++) {
+                    app.addView((DrawNumberView) view.getConstructor().newInstance());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
