@@ -81,7 +81,7 @@ public final class SimpleGUIWithFileChooser {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         SimpleGUIWithFileChooser gui = new SimpleGUIWithFileChooser();
         gui.display();
     }
